@@ -9,3 +9,8 @@ Here, I implement the regularization method of implementing Viscoplastic fluid.
 <p align="center">
   <img src="image_0.png" width="50%">
 </p>
+The result for the current simulation:
+<p align="center">
+  <img src="LidDriven.png" width="50%">
+</p>
+
