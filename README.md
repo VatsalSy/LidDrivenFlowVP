@@ -7,5 +7,5 @@ Vola et al. (2003) used the Augmented Lagrangian Method to simulate lid-driven c
 Here, I implement the regularization method of implementing Viscoplastic fluid.
 
 <p align="center">
-  <img src="image_0" width="50%">
+  <img src="image_0.png" width="50%">
 </p>
