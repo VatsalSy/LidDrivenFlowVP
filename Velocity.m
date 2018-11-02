@@ -14,7 +14,7 @@ nskip = 2;
 % 
 filename = {'tau0'; 'tau1'; 'tau2'; 'tau3'; 'tau4'};
 Bas = {[]};
-for counter = 1:1:5
+for counter = 1:1:length(filename)
     ll=evalc(sprintf('!./getDataLine %s', filename{counter}));
     bolo=textscan(ll,'%f %f\n');
     Bas{counter}.y = bolo{1}+0.5; Bas{counter}.u = bolo{2}; 
@@ -23,14 +23,14 @@ end
 figure1 = figure('visible','on','WindowState','fullscreen','Color',[1 1 1]);
 axes1 = axes('Parent',figure1);
 hold(axes1,'on');
-COLOR = lines(5);
+COLOR = lines(length(filename));
 
-for counter = 1:1:5
+for counter = 1:1:length(filename)
     plot(ALM{counter}.y(2:nskip:end),ALM{counter}.u(2:nskip:end),'.','color',COLOR(counter,:),'MarkerSize',40,'LineWidth',2)
     plot(Vola{counter}.y,Vola{counter}.u,'+','color',COLOR(counter,:),'MarkerSize',20,'LineWidth',2)
     plot(Bas{counter}.y,Bas{counter}.u,'-','color',COLOR(counter,:),'MarkerSize',40,'LineWidth',3)
 end
-colormap(lines(5))
+colormap(lines(length(filename)))
 caxis([0 1.0])
 colorbar('Ticks',[0.10,0.30,0.50,0.70,0.90],...
          'TickLabels',{'\boldmath{$\tau_y = 0$}','\boldmath{$\tau_y = 1/\sqrt{2}$}','\boldmath{$\tau_y = 10/\sqrt{2}$}',...

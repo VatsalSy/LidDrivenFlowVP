@@ -50,8 +50,8 @@ def gettingfield(filename, LEVEL):
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-place = "tau4"
-name = "tau4.png"
+place = "tau0"
+name = "tau0.png"
 LEVEL = 6
 mu0 = 1.0
 tauy = 0.0

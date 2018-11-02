@@ -14,12 +14,12 @@ double tauy;
 int counter;
 #define mu_0 (1.0)
 // The regularisation value of viscosity
-#define mumax (1e4)
+double mumax = (1e3);
 
 int imax = 1e5;
 #define LEVEL 6
 #define Maxdt (1e-4)
-#define ERROR (1e-10)
+#define ERROR (1e-6)
 
 scalar un[];
 face vector muv[];
@@ -50,12 +50,15 @@ int main()
   DT = Maxdt;
   TOLERANCE = 1e-5;
   // CFL number
-  CFL = 0.5;
+  CFL = 0.25;
   for (counter = 0; counter < 5; counter++){
     if (counter == 0){
       tauy = 0.0;
     } else {
       tauy = pow(10, counter-1)/sqrt(2);
+    }
+    if (counter>1){
+      mumax = (1e4);
     }
     fprintf(ferr, "tauy = %g\n", tauy);
     sprintf (filename, "tau%d", counter);
@@ -78,7 +81,7 @@ uf.n[bottom] = 0;
 
 /**
 We look for a stationary solution. */
-event logfile (i++; i <= imax) {
+event logfile (i=i+500; i <= imax) {
   double du = change (u.x, un);
   fprintf(ferr, "i = %d: dt = %g err = %g\n", i, dt, du);
   if (i > 0 && du < ERROR){
@@ -114,7 +117,7 @@ event properties(i++) {
     double D22 = ((u.y[0,1]-u.y[0,-1])+(u.y[-1,1]-u.y[-1,-1]))/4.0;
     double D12 = 0.5*(((u.x[0,1]-u.x[0,-1])+(u.x[-1,1]-u.x[-1,-1]))/4.0 + (u.y[] - u.y[-1,0]));
     double D2 = sqrt(sq(D11)+sq(D22)+2.0*sq(D12))/(Delta);
-    if (D2 > 1e-6) {
+    if (D2 > 0.) {
       double temp = tauy/(sqrt(2.0)*D2) + mu_0;
       muTemp = min(temp, mumax);
     } else {
